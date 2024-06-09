@@ -6,9 +6,9 @@ from .models import CustomUser
 # Register your models here.
 
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('id', 'username', 'email', 'dni', 'celular', 'fecha_de_registro', 'is_staff', 'is_active', 'foto_de_perfil')
-    search_fields = ('username', 'email', 'dni', 'celular')
-    list_filter = ('is_staff', 'is_active', 'fecha_registro')
+    list_display = ('id', 'username', 'email', 'dni', 'celular','genero', 'fecha_de_registro', 'is_staff', 'is_active', 'foto_de_perfil',)
+    search_fields = ('username', 'email', 'dni', 'celular', 'genero',)
+    list_filter = ('is_staff', 'is_active', 'fecha_registro', 'genero',)
 
     @admin.display() 
     def fecha_de_registro(self, obj):  
