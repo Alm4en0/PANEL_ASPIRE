@@ -1,0 +1,61 @@
+.title{
+    color: var(--Blanco);
+    font-family: 'Work Sans';
+    line-height: 125%;
+    font-size: 48px;
+    font-weight: bold;
+}
+.subtitle{
+    color: var(--Blanco);
+    font-family: 'Work Sans';
+    line-height: 125%;
+    font-size: 20px;
+    font-weight: bold;
+}
+.textbox{
+    padding: 10px 15px;
+    border: none;
+    width: 100%;
+    background: var(--Negro);
+    color: var(--Blanco);
+    border-bottom: 4px solid #2563EB;
+    border-radius: 5px;
+    align-self: stretch;
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 125%;
+}
+.textbox:focus {
+    outline: none;
+}
+.secondaryButton{
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 125%;
+    color: var(--GrisClaro);
+    text-decoration: none;
+}
+.fullSpace, .fullSpace button {
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+}
+.blue{
+    color: var(--Azul);
+}
+@media screen and (max-width:1300px) {
+
+}
+@media screen and (max-width:900px) {
+    .secondaryButton, .textbox, .subtitle{
+        font-size: 15px;
+    }.title{
+        font-size: 40px;
+    }
+}
+@media screen and (max-width:500px) {
+}

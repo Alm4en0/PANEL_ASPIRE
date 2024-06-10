@@ -1,0 +1,147 @@
+.section{
+    display: flex;
+    align-items: flex-start;
+    padding: 50px 100px;
+    width: 100%;
+    gap: 25px;
+    background-color: var(--Negro);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.dataSection{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.chartSection{
+    width: 35%;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.analiticSection{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 2px solid var(--Gris);
+    border-radius: 15px;
+}
+
+.itemContainer{
+    color: var(--Blanco);
+    font-family: 'Work Sans';
+    line-height: 125%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px 50px;
+    justify-content: center;
+    align-items: center;
+}
+.itemAnalitic{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    width: 180px;
+    background: var(--GrisOscuro);
+    border-radius: 15px;
+}
+.itemAnaliticNumber{
+    padding: 3px;
+    font-weight: 600;
+    font-size: 24px;
+}
+.itemAnaliticText{
+    font-weight: 500;
+    font-size: 20px;
+}
+.listCousesTop{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 50px;
+    gap: 10px;
+    color: var(--Blanco);
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 125%;
+    overflow-y: scroll;
+}
+.itemCouseTop{
+    min-width: 900px;
+    display: grid;
+    grid-template-columns:  50px 1fr 1fr 150px;
+    padding: 30px;
+    grid-gap: 30px;
+    text-align: center;
+    width: 100%;
+    background: var(--GrisOscuro);
+    border-radius: 15px;
+}
+.inputFile{
+    padding: 10px 15px;
+    border: none;
+    width: 100%;
+    color: var(--Blanco);
+    background: #2563EB;
+    border-radius: 5px;
+    align-self: stretch;
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 125%;
+}
+.inputFile input{
+    display: none;
+}
+.columnInput{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+.inputContainer{
+    display: flex;
+    width: 100%;
+    gap: 15px;
+}
+.columnInput{
+    width: 100%;
+}
+@media screen and (max-width:1300px) {
+        .section{
+            padding: 20px 40px;
+        }
+        .itemContainer{
+            padding: 20px;
+        }
+        .dataSection{
+            width: 85%;
+        }
+  }
+  @media screen and (max-width:900px) {
+    .section{
+        padding: 10px;
+    }
+    .dataSection{
+        width: 100%;
+    }
+    .listCousesTop{
+        padding: 20px;
+    }
+    .chartSection{
+        width: 100%;
+    }
+    .inputContainer{
+        flex-wrap: wrap;
+    }
+  }
+  @media screen and (max-width:500px) {
+
+  }
