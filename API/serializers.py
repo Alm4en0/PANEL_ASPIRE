@@ -67,4 +67,17 @@ class RegistrosLandingSerializer(serializers.ModelSerializer):
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = '__all__'
+        fields = ['username', 'first_name', 'last_name', 'email', 'password','dni','celular']
+
+    def create(self, validated_data):
+        # Use the `create_user` method for creating a new user which handles password hashing
+        user = CustomUser.objects.create_user(
+            username=validated_data['username'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name'],
+            email=validated_data['email'],
+            password=validated_data['password'],
+            dni=validated_data['dni'],
+            celular=validated_data['celular'],
+        )
+        return user 

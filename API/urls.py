@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.urls import path, re_path
+
 urlpatterns = [
     path('categorias/', views.CategoriaCursoListCreate.as_view(), name='categoria-list-create'),
     path('categorias/<int:pk>/', views.CategoriaCursoRetrieveUpdateDestroy.as_view(), name='categoria-detail'),
@@ -41,4 +43,6 @@ urlpatterns = [
     path('usuarios/', views.CustomUserListCreate.as_view()),  # Ruta para listar y crear usuarios
     path('usuarios/<int:pk>/', views.CustomUserRetrieveUpdateDestroy.as_view()),  # Ruta para obtener, actualizar y eliminar usuarios
 
+    re_path('login', views.login),
+    re_path('register', views.register)
 ]
