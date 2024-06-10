@@ -1,0 +1,167 @@
+.cursoMain{
+    margin: 50px 170px;
+    color: var(--Blanco);
+    font-family: 'Work Sans';
+    font-style: normal;
+    line-height: 125%;
+    display: flex;
+    justify-content: space-between;
+}
+.infoCurso{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 58%;
+}
+.courseInfo, .resultados{
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 3px solid var(--Gris);
+    border-radius: 15px;
+}
+.courseInfoContainerTitle{
+    padding: 50px 40px;
+    width: 100%;
+    background: var(--Gris);
+}
+.courseInfoTitle{
+    font-weight: 700;
+    font-size: 40px;
+    line-height : 40px;
+}
+.courseInfoData{
+    padding:15px 40px;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+.courseInfoTagContainer{
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+.bold{
+    font-weight: 700;
+}
+.resultadosContainerTitle{
+    padding: 30px 40px;
+    width: 100%;
+    background: var(--Gris);
+}
+.resultadosTitle{
+    font-weight: 700;
+    font-size: 30px;
+    line-height : 30px;
+}
+.resultados ul{
+    padding:15px 40px;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+}
+.resultados li{
+    display: flex;
+    align-items: center;
+}
+.infoDeCompra{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    background: var(--GrisOscuro);
+    border: 4px solid var(--Azul);
+    border-radius: 15px;
+    overflow: hidden;
+    height: fit-content;
+}
+.imgVistaPrevia{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.imgPortada,.videoPreview{
+    width: 100%;
+    min-height: 340px;
+    border: none;
+}
+.btnPlay{
+    width: 150px;
+    position: absolute;
+}
+.infoDeCompraData{
+    margin: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.infoDeCompraPrecios{
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.infoDeCompraPrecio{
+    font-size: 40px;
+}
+.infoDeCompraPrecioSinDescuento{
+    font-size: 23px;
+    line-height: 125%;
+    text-decoration-line: line-through;
+    color: var(--Gris);
+}
+.textCenter{
+    text-align: center;
+}
+.RETIRADO{
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+@media screen and (max-width:1300px) {
+    .cursoMain{
+        margin: 30px 60px;
+    }
+}
+
+@media screen and (max-width:900px) {
+    .cursoMain{
+        flex-direction: column-reverse;
+        gap: 20px;
+        align-items: center;
+        margin: 0;
+        padding: 20px;
+    }
+    .infoCurso{
+        width: 70%;
+    }
+    .infoDeCompra{
+        width: 70%;
+    }
+    .browse{
+        width: 100%;
+        padding: 20px;
+    }
+    .browseTitle{
+        padding: 20px;
+        font-size: 35px;
+        text-align: center;
+    }
+    .courseInfoContainerTitle{
+        padding: 20px;
+        text-align: center;
+    }
+    .courseInfoData{
+        padding: 20px;
+    }
+}
+@media screen and (max-width:500px) {
+    .infoCurso{
+        width: 95%;
+    }
+    .infoDeCompra{
+        width: 95%;
+    }
+}

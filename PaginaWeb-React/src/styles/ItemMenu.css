@@ -1,0 +1,89 @@
+
+.withBackground{
+    background: linear-gradient(86.47deg, var(--Azul) 0%, var(--Celeste) 100%);
+}
+.withoutBackground{
+    background-color: transparent;
+}
+.buttonItemMenu{
+    border: none;
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 150%;
+    text-transform: uppercase;
+    padding: 7px 15px;
+    text-decoration: none;
+    text-align: center;
+}
+.buttonItemMenu:hover{
+    color: var(--Blanco);
+}
+.itemLink{
+    text-decoration: none;
+}
+.ItemMenu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 70px;
+    border-radius: 5px;
+}
+.ItemMenu:hover{
+    box-shadow: 10px 10px 33px 0px rgba(0,0,0,0.39) inset;
+    -webkit-box-shadow: 10px 10px 33px 0px rgba(0,0,0,0.39) inset;
+    -moz-box-shadow: 10px 10px 33px 0px rgba(0,0,0,0.39) inset;
+}
+.ItemMenu span{
+    text-transform: uppercase;
+    color: var(--Blanco);
+}
+
+.important{
+    background: linear-gradient(86.47deg, #2563EB 0%, #00A7E3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.btnDelete{
+    background: linear-gradient(86.47deg, #9c0f0f 0%, #dd4104 100%);
+}
+.simple{
+    background-color: transparent;
+    border: none;
+    color: #C9C9CA;
+    ;
+}
+.buttonhide{
+  top: 0px;
+}
+.buttonshow{
+    top: -70px;
+}
+.button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 70px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    color: var(--Blanco);
+}
+@media screen and (max-width:1300px) {
+    .buttonItemMenu{
+        padding: 7px 10px;
+    }
+    
+}
+@media screen and (max-width:800px) {
+    .buttonItemMenu {
+        width: 100%;
+        padding: 15px 10px;
+        text-align: center;
+    }
+}
+@media screen and (max-width:500px) {
+
+}

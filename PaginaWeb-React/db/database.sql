@@ -1,0 +1,81 @@
+CREATE DATABASE IF NOT EXISTS coursesdb;
+
+SHOW databases;
+SHOW tables;
+
+USE coursesdb;
+
+CREATE TABLE Curso(
+    ID INT(11) NOT NULL AUTO_INCREMENT,
+    Titulo VARCHAR(50) DEFAULT NULL,
+    Subtitulo VARCHAR(100) DEFAULT NULL,
+    Nivel VARCHAR(50) DEFAULT NULL,
+    Categoria VARCHAR(50) DEFAULT NULL,
+    Subcategoria VARCHAR(50) DEFAULT NULL,
+    Descripcion VARCHAR(250) DEFAULT NULL,
+    Estado VARCHAR(50) DEFAULT NULL,
+    Idioma VARCHAR(50) DEFAULT NULL,
+    TiempoDePublicacion INT(5) DEFAULT NULL,
+    PrecioEnPesos decimal(15,2) DEFAULT 1,
+    PrecioEnDolares decimal(15,2) DEFAULT 1,
+    ImagenDePortada VARCHAR(100) DEFAULT NULL,
+    VideoPromocional VARCHAR(50) DEFAULT NULL,
+    MensajeDeBienvenida VARCHAR(150) DEFAULT NULL,
+    MensajeDeFelicitaciones VARCHAR(150) DEFAULT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE Usuario(
+    NombreDeUsuario VARCHAR(50) NOT NULL,
+    Nombre VARCHAR(50) DEFAULT NULL,
+    Apellido VARCHAR(50) DEFAULT NULL,
+    Genero VARCHAR(50) DEFAULT NULL,
+    Contraseña VARCHAR(50) DEFAULT NULL,
+    Email VARCHAR(50) DEFAULT NULL,
+    Preferencias VARCHAR(50) DEFAULT NULL,
+    Estado VARCHAR(50) DEFAULT NULL,
+    PRIMARY KEY (NombreDeUsuario)
+);
+CREATE TABLE Permiso(
+    ID INT(11) NOT NULL AUTO_INCREMENT,
+    Nombre VARCHAR(50) DEFAULT NULL,
+    PRIMARY KEY (ID)
+);
+CREATE TABLE Rol(
+    ID INT(11) NOT NULL AUTO_INCREMENT,
+    Nombre VARCHAR(50) DEFAULT NULL,
+    PRIMARY KEY (ID)
+);
+CREATE TABLE PermisoRol(
+    ID INT(11) NOT NULL AUTO_INCREMENT,
+    RolID INT(11) NOT NULL,
+    PermisoID INT(11) NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (RolID) REFERENCES Rol(ID),
+    FOREIGN KEY (PermisoID) REFERENCES Permiso(ID)
+);
+CREATE TABLE RolUsuario(
+    ID INT(11) NOT NULL AUTO_INCREMENT,
+    RolID INT(11) NOT NULL,
+    UsuarioNombreDeUsuario VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (RolID) REFERENCES Rol(ID),
+    FOREIGN KEY (UsuarioNombreDeUsuario) REFERENCES Usuario(NombreDeUsuario)
+);
+CREATE TABLE CursoUsuario(
+    ID INT(11) NOT NULL AUTO_INCREMENT,
+    CursoID INT(11) NOT NULL,
+    UsuarioNombreDeUsuario VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (CursoID) REFERENCES Curso(ID),
+    FOREIGN KEY (UsuarioNombreDeUsuario) REFERENCES Usuario(NombreDeUsuario)
+);
+CREATE TABLE RegistroDeCompra(
+    ID INT(11) NOT NULL AUTO_INCREMENT,
+    CursoUsuarioID INT(11) NOT NULL,
+    Fecha DATETIME DEFAULT NULL,
+    Monto decimal(15,2) DEFAULT 1,
+    Moneda VARCHAR(50) DEFAULT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (CursoUsuarioID) REFERENCES CursoUsuario(ID)
+);
