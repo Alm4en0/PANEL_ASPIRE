@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 from django.urls import path, re_path
+from .views import comprar_curso, get_curso_by_nombre
+
 
 urlpatterns = [
     path('categorias/', views.CategoriaCursoListCreate.as_view(), name='categoria-list-create'),
@@ -44,5 +46,11 @@ urlpatterns = [
     path('usuarios/<int:pk>/', views.CustomUserRetrieveUpdateDestroy.as_view()),  # Ruta para obtener, actualizar y eliminar usuarios
 
     re_path('login', views.login),
-    re_path('register', views.register)
+    re_path('register', views.register),
+    
+    path('cursos/<str:nombre>/', get_curso_by_nombre, name='curso-by-nombre'),
+    path('comprar-curso/', comprar_curso),
+
+    
+
 ]
