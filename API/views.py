@@ -28,6 +28,7 @@ def login(request):
 
     return Response({"token": token.key, "user": serializer.data }, status=status.HTTP_200_OK)
 
+
 @api_view(['POST'])
 def register(request):
     serializer = CustomUserSerializer(data=request.data)

@@ -45,8 +45,9 @@ urlpatterns = [
     path('usuarios/', views.CustomUserListCreate.as_view()),  # Ruta para listar y crear usuarios
     path('usuarios/<int:pk>/', views.CustomUserRetrieveUpdateDestroy.as_view()),  # Ruta para obtener, actualizar y eliminar usuarios
 
-    re_path('login', views.login),
-    re_path('register', views.register),
+    path('login/', views.login, name='login'),
+    path('register/', views.register, name='register'),
+
     
     path('cursos/<str:nombre>/', get_curso_by_nombre, name='curso-by-nombre'),
     path('comprar-curso/', comprar_curso),

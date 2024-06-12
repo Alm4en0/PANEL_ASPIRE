@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-k**u6(y$ai+2v1^_(7d6ex3l5v8g6@e^innkn(uxx!va(p8k9*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -73,9 +73,18 @@ ROOT_URLCONF = 'ASPIRE.urls'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     
-    "http://localhost:3000"
+    "http://localhost:3000",
+
+    "http://192.168.101.73:8000",
+
+    "http://192.168.101.73",
 
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True  # Solo para desarrollo
+
+
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS = (
     "DELETE",
