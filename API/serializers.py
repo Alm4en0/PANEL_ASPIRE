@@ -6,7 +6,7 @@ from user.models import CustomUser
 class CategoriaCursoSerializer(serializers.ModelSerializer):
     class Meta:
         model = CategoriaCurso
-        fields = ['nombre']
+        fields = ['nombre','imagen']
 
 class SubCategoriaCursoSerializer(serializers.ModelSerializer):
     class Meta:
