@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from django.urls import path, re_path
 from .views import comprar_curso, get_curso_by_nombre
+from rest_framework.authtoken import views as drf_views
 
 
 urlpatterns = [
@@ -47,6 +48,8 @@ urlpatterns = [
 
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
+    path('api-token-auth/', drf_views.obtain_auth_token),  # Ruta para obtener el token de autenticación
+
 
     
     path('cursos/<str:nombre>/', get_curso_by_nombre, name='curso-by-nombre'),
