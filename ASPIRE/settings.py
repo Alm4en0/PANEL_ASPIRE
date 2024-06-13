@@ -124,10 +124,10 @@ WSGI_APPLICATION = 'ASPIRE.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'aspire',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'NAME': 'u248345608_ASPIRE',
+        'USER': 'u248345608_Aspire',
+        'PASSWORD': 'Aspire.18321.ha',
+        'HOST': 'srv586.hstgr.io',
         'PORT': '3306'
     }
 }
