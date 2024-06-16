@@ -101,9 +101,12 @@ class VentaCurso(models.Model):
 
 class ModuloCurso(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    descripcion = models.TextField(null=True)
     nombre = models.CharField(max_length=150, null=False)
     estado = models.BooleanField(default=True)
     link = models.URLField()
+    duracion = models.DurationField(null=True) 
+    
 
     def __str__(self):
         return self.nombre

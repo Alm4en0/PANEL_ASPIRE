@@ -80,9 +80,9 @@ class VentaCursoAdmin(admin.ModelAdmin):
         return '-'
 
 class ModuloCursoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'curso', 'nombre', 'estado', 'link')
+    list_display = ('id', 'curso', 'nombre', 'descripcion','estado', 'link', 'duracion')
     search_fields = ('curso__nombre',)
-    list_filter = ('curso',)
+    list_filter = ('curso', 'estado',)
 
 class RecursoCursoAdmin(admin.ModelAdmin):
     list_display = ('id', 'curso', 'descripcion', 'nombre_recurso', 'url_recurso')
