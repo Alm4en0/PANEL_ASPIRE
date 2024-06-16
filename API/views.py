@@ -10,8 +10,8 @@ import json
 
 
 from rest_framework import generics
-from cursos.models import CategoriaCurso, SubCategoriaCurso, Curso, Plan, Venta, PlanCurso, InscripcionCurso, VentaCurso, ModuloCurso, RecursoCurso, VentaPago, RegistrosLanding
-from .serializers import CategoriaCursoSerializer, SubCategoriaCursoSerializer, CursoSerializer, PlanSerializer, VentaSerializer, PlanCursoSerializer, InscripcionCursoSerializer, VentaCursoSerializer, ModuloCursoSerializer, RecursoCursoSerializer, VentaPagoSerializer, RegistrosLandingSerializer,CustomUserSerializer
+from cursos.models import CategoriaCurso, SubCategoriaCurso, Curso, Plan, Venta, PlanCurso, InscripcionCurso, VentaCurso, ModuloCurso, RecursoCurso, VentaPago, RegistroLanding
+from .serializers import CategoriaCursoSerializer, SubCategoriaCursoSerializer, CursoSerializer, PlanSerializer, VentaSerializer, PlanCursoSerializer, InscripcionCursoSerializer, VentaCursoSerializer, ModuloCursoSerializer, RecursoCursoSerializer, VentaPagoSerializer, RegistroLandingSerializer,CustomUserSerializer
 
 from user.models import CustomUser
 
@@ -190,13 +190,13 @@ class VentaPagoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = VentaPago.objects.all()
     serializer_class = VentaPagoSerializer
 
-class RegistrosLandingListCreate(generics.ListCreateAPIView):
-    queryset = RegistrosLanding.objects.all()
-    serializer_class = RegistrosLandingSerializer
+class RegistroLandingListCreate(generics.ListCreateAPIView):
+    queryset = RegistroLanding.objects.all()
+    serializer_class = RegistroLandingSerializer
 
-class RegistrosLandingRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = RegistrosLanding.objects.all()
-    serializer_class = RegistrosLandingSerializer
+class RegistroLandingRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = RegistroLanding.objects.all()
+    serializer_class = RegistroLandingSerializer
 
 
 """ Vistas para usuarios """

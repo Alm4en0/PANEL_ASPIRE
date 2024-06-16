@@ -39,8 +39,8 @@ urlpatterns = [
     path('ventas-pago/', views.VentaPagoListCreate.as_view(), name='venta-pago-list-create'),
     path('ventas-pago/<int:pk>/', views.VentaPagoRetrieveUpdateDestroy.as_view(), name='venta-pago-detail'),
 
-    path('registros-landing/', views.RegistrosLandingListCreate.as_view(), name='registro-landing-list-create'),
-    path('registros-landing/<int:pk>/', views.RegistrosLandingRetrieveUpdateDestroy.as_view(), name='registro-landing-detail'),
+    path('registros-landing/', views.RegistroLandingListCreate.as_view(), name='registro-landing-list-create'),
+    path('registros-landing/<int:pk>/', views.RegistroLandingRetrieveUpdateDestroy.as_view(), name='registro-landing-detail'),
 
 
     path('usuarios/', views.CustomUserListCreate.as_view()),  # Ruta para listar y crear usuarios
