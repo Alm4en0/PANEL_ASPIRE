@@ -145,3 +145,11 @@ class RegistrosLanding(models.Model):
     class Meta:
         verbose_name = 'Registro en Landing'
         verbose_name_plural = 'Registros en Landing'
+
+
+class RegistroLanding(models.Model):
+    nombre = models.CharField( max_length=50, null=False)
+    apellido = models.CharField(max_length=50, null=False)
+    correo = models.EmailField (null=False)
+    celular = models.CharField (max_length=15, null=False)
+    fecha_registro = models.DateTimeField(auto_now_add=True)

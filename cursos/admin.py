@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 
-from .models import CategoriaCurso, SubCategoriaCurso, Curso, Plan, Venta, PlanCurso, InscripcionCurso, VentaCurso, ModuloCurso, RecursoCurso, VentaPago
+from .models import CategoriaCurso, SubCategoriaCurso, Curso, Plan, Venta, PlanCurso, InscripcionCurso, VentaCurso, ModuloCurso, RecursoCurso, VentaPago, RegistroLanding
 
 class CategoriaCursoAdmin(admin.ModelAdmin):
     list_display = ('id', 'nombre', 'descripcion', 'estado', 'codigo', 'imagen_categoria')
@@ -100,6 +100,17 @@ class VentaPagoAdmin(admin.ModelAdmin):
             return obj.fecha_registro.strftime("%d-%m-%Y %H:%M:%S")
         return '-'
 
+class RegistroLandingAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nombre', 'apellido', 'correo', 'celular', 'fecha_registro_formatted')
+    search_fields = ('nombre','apellido', 'correo' ,'celular',)
+    list_filter = ('fecha_registro',)
+
+    @admin.display(description='Fecha de Registro')
+    def fecha_registro_formatted(self, obj):
+        if obj.fecha_registro:
+            return obj.fecha_registro.strftime("%d-%m-%Y %H:%M:%S")
+        return '-'
+
 admin.site.register(CategoriaCurso, CategoriaCursoAdmin)
 admin.site.register(SubCategoriaCurso, SubCategoriaCursoAdmin)
 admin.site.register(Curso, CursoAdmin)
@@ -111,3 +122,4 @@ admin.site.register(VentaCurso, VentaCursoAdmin)
 admin.site.register(ModuloCurso, ModuloCursoAdmin)
 admin.site.register(RecursoCurso, RecursoCursoAdmin)
 admin.site.register(VentaPago, VentaPagoAdmin)
+admin.site.register(RegistroLanding, RegistroLandingAdmin)

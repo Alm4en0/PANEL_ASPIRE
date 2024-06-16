@@ -121,6 +121,8 @@ WSGI_APPLICATION = 'ASPIRE.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# The `DATABASES` setting in Django is used to configure the database connection for your project. In
+# this specific configuration:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
