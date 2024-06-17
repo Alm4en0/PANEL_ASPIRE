@@ -6,7 +6,7 @@ class CategoriaCurso(models.Model):
     descripcion = models.TextField()
     estado = models.BooleanField(default=True)
     codigo = models.CharField(max_length=50, null=False)
-    imagen = models.ImageField(upload_to='categoria_img/', null=False)
+    imagen = models.ImageField(upload_to='categoria_img/', null=True)
 
     def __str__(self):
         return self.nombre
@@ -21,7 +21,7 @@ class SubCategoriaCurso(models.Model):
     descripcion = models.TextField()
     estado = models.BooleanField(default=True)
     codigo = models.CharField(max_length=50, null=False)
-    imagen = models.ImageField(upload_to='subcategoria_img/', null=False)
+    imagen = models.ImageField(upload_to='subcategoria_img/', null=True)
 
     def __str__(self):
         return self.nombre
