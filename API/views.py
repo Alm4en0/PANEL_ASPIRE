@@ -78,6 +78,21 @@ def comprar_curso(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['POST'])
+def save_payment(request):
+    data = request.data
+
+    # Suponiendo que el campo `venta` está relacionado con un objeto `Venta` existente
+    try:
+        venta = Venta.objects.get(pk=data.get('venta_id'))
+    except Venta.DoesNotExist:
+        return Response({'error': 'Venta no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+
+    serializer = VentaPagoSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save(venta=venta)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 """ 
 @api_view(['GET'])

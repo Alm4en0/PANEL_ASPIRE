@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from django.urls import path, re_path
-from .views import comprar_curso, get_curso_by_nombre
+from .views import comprar_curso, get_curso_by_nombre, save_payment
 
 
 urlpatterns = [
@@ -51,6 +51,7 @@ urlpatterns = [
     path('cursos/<str:nombre>/', get_curso_by_nombre, name='curso-by-nombre'),
     path('comprar-curso/', comprar_curso),
 
-    
+    path('save-payment/', save_payment, name='save_payment'),
+
 
 ]
