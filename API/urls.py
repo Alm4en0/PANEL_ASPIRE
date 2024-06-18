@@ -1,7 +1,10 @@
 from django.urls import path
 from . import views
 from django.urls import path, re_path
+
 from .views import comprar_curso, get_curso_by_nombre, save_payment
+from rest_framework.authtoken import views as drf_views
+
 
 
 urlpatterns = [
@@ -38,15 +41,18 @@ urlpatterns = [
     path('ventas-pago/', views.VentaPagoListCreate.as_view(), name='venta-pago-list-create'),
     path('ventas-pago/<int:pk>/', views.VentaPagoRetrieveUpdateDestroy.as_view(), name='venta-pago-detail'),
 
-    path('registros-landing/', views.RegistrosLandingListCreate.as_view(), name='registro-landing-list-create'),
-    path('registros-landing/<int:pk>/', views.RegistrosLandingRetrieveUpdateDestroy.as_view(), name='registro-landing-detail'),
+    path('registros-landing/', views.RegistroLandingListCreate.as_view(), name='registro-landing-list-create'),
+    path('registros-landing/<int:pk>/', views.RegistroLandingRetrieveUpdateDestroy.as_view(), name='registro-landing-detail'),
 
 
     path('usuarios/', views.CustomUserListCreate.as_view()),  # Ruta para listar y crear usuarios
     path('usuarios/<int:pk>/', views.CustomUserRetrieveUpdateDestroy.as_view()),  # Ruta para obtener, actualizar y eliminar usuarios
 
-    re_path('login', views.login),
-    re_path('register', views.register),
+    path('login/', views.login, name='login'),
+    path('register/', views.register, name='register'),
+    path('api-token-auth/', drf_views.obtain_auth_token),  # Ruta para obtener el token de autenticación
+
+
     
     path('cursos/<str:nombre>/', get_curso_by_nombre, name='curso-by-nombre'),
     path('comprar-curso/', comprar_curso),

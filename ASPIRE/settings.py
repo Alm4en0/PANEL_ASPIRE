@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-k**u6(y$ai+2v1^_(7d6ex3l5v8g6@e^innkn(uxx!va(p8k9*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -71,11 +71,23 @@ ROOT_URLCONF = 'ASPIRE.urls'
 
 
 CORS_ALLOWED_ORIGINS = [
+    
     "http://localhost:5173",
     
-    "http://localhost:3000"
+    "http://localhost:3000",
+
+    "http://192.168.101.73:8000",
+
+    "http://192.168.101.73",
+
+    "http://192.168.79.155",
 
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True  # Solo para desarrollo
+
+
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_METHODS = (
     "DELETE",
@@ -109,13 +121,15 @@ WSGI_APPLICATION = 'ASPIRE.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# The `DATABASES` setting in Django is used to configure the database connection for your project. In
+# this specific configuration:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'aspire',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'NAME': 'u248345608_ASPIRE',
+        'USER': 'u248345608_Aspire',
+        'PASSWORD': 'Aspire.18321.ha',
+        'HOST': 'srv586.hstgr.io',
         'PORT': '3306'
     }
 }

@@ -6,7 +6,7 @@ class CategoriaCurso(models.Model):
     descripcion = models.TextField()
     estado = models.BooleanField(default=True)
     codigo = models.CharField(max_length=50, null=False)
-    imagen = models.ImageField(upload_to='categoria_img/', null=False)
+    imagen = models.ImageField(upload_to='categoria_img/', null=True)
 
     def __str__(self):
         return self.nombre
@@ -21,7 +21,7 @@ class SubCategoriaCurso(models.Model):
     descripcion = models.TextField()
     estado = models.BooleanField(default=True)
     codigo = models.CharField(max_length=50, null=False)
-    imagen = models.ImageField(upload_to='subcategoria_img/', null=False)
+    imagen = models.ImageField(upload_to='subcategoria_img/', null=True)
 
     def __str__(self):
         return self.nombre
@@ -101,9 +101,12 @@ class VentaCurso(models.Model):
 
 class ModuloCurso(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    descripcion = models.TextField(null=True)
     nombre = models.CharField(max_length=150, null=False)
     estado = models.BooleanField(default=True)
     link = models.URLField()
+    duracion = models.DurationField(null=True) 
+    
 
     def __str__(self):
         return self.nombre
@@ -134,10 +137,12 @@ class VentaPago(models.Model):
         verbose_name = 'Pago de Venta'
         verbose_name_plural = 'Pagos de Venta'
 
-class RegistrosLanding(models.Model):
-    nombre = models.CharField(max_length=200, null=False)
-    correo = models.EmailField(null=False)
-    celular = models.CharField(max_length=15, null=False)
+class RegistroLanding(models.Model):
+    nombre = models.CharField( max_length=50, null=False)
+    apellido = models.CharField(max_length=50, null=False)
+    correo = models.EmailField (null=False)
+    celular = models.CharField (max_length=15, null=False)
+    fecha_registro = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.nombre

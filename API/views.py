@@ -10,23 +10,32 @@ import json
 
 
 from rest_framework import generics
-from cursos.models import CategoriaCurso, SubCategoriaCurso, Curso, Plan, Venta, PlanCurso, InscripcionCurso, VentaCurso, ModuloCurso, RecursoCurso, VentaPago, RegistrosLanding
-from .serializers import CategoriaCursoSerializer, SubCategoriaCursoSerializer, CursoSerializer, PlanSerializer, VentaSerializer, PlanCursoSerializer, InscripcionCursoSerializer, VentaCursoSerializer, ModuloCursoSerializer, RecursoCursoSerializer, VentaPagoSerializer, RegistrosLandingSerializer,CustomUserSerializer
+from cursos.models import CategoriaCurso, SubCategoriaCurso, Curso, Plan, Venta, PlanCurso, InscripcionCurso, VentaCurso, ModuloCurso, RecursoCurso, VentaPago, RegistroLanding
+from .serializers import CategoriaCursoSerializer, SubCategoriaCursoSerializer, CursoSerializer, PlanSerializer, VentaSerializer, PlanCursoSerializer, InscripcionCursoSerializer, VentaCursoSerializer, ModuloCursoSerializer, RecursoCursoSerializer, VentaPagoSerializer, RegistroLandingSerializer,CustomUserSerializer
 
 from user.models import CustomUser
 
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
+
 @api_view(['POST'])
 def login(request):
+    try:
+        email = request.data['email']
+        password = request.data['password']
 
-    user = get_object_or_404(CustomUser, email=request.data['email'])
+        user = get_object_or_404(CustomUser, email=email)
 
-    if not user.check_password(request.data['password']):
-        return Response({"error": "Invalid password"}, status=status.HTTP_400_BAD_REQUEST)
-    
-    token, created = Token.objects.get_or_create(user=user)
-    serializer = CustomUserSerializer(instance=user)
+        if not user.check_password(password):
+            return Response({"error": "Contraseña inválida"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        token, _ = Token.objects.get_or_create(user=user)
+        serializer = CustomUserSerializer(instance=user)
+        return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
 
-    return Response({"token": token.key, "user": serializer.data }, status=status.HTTP_200_OK)
+    except KeyError:
+        return Response({"error": "Datos incompletos"}, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 def register(request):
@@ -195,13 +204,13 @@ class VentaPagoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = VentaPago.objects.all()
     serializer_class = VentaPagoSerializer
 
-class RegistrosLandingListCreate(generics.ListCreateAPIView):
-    queryset = RegistrosLanding.objects.all()
-    serializer_class = RegistrosLandingSerializer
+class RegistroLandingListCreate(generics.ListCreateAPIView):
+    queryset = RegistroLanding.objects.all()
+    serializer_class = RegistroLandingSerializer
 
-class RegistrosLandingRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = RegistrosLanding.objects.all()
-    serializer_class = RegistrosLandingSerializer
+class RegistroLandingRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset = RegistroLanding.objects.all()
+    serializer_class = RegistroLandingSerializer
 
 
 """ Vistas para usuarios """

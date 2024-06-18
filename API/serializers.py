@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from cursos.models import CategoriaCurso, SubCategoriaCurso, Curso, Plan, Venta, PlanCurso, InscripcionCurso, VentaCurso, ModuloCurso, RecursoCurso, VentaPago, RegistrosLanding
+from cursos.models import CategoriaCurso, SubCategoriaCurso, Curso, Plan, Venta, PlanCurso, InscripcionCurso, VentaCurso, ModuloCurso, RecursoCurso, VentaPago, RegistroLanding
 from user.models import CustomUser
 
 
@@ -79,9 +79,9 @@ class VentaPagoSerializer(serializers.ModelSerializer):
         model = VentaPago
         fields = '__all__'
 
-class RegistrosLandingSerializer(serializers.ModelSerializer):
+class RegistroLandingSerializer(serializers.ModelSerializer):
     class Meta:
-        model = RegistrosLanding
+        model = RegistroLanding
         fields = '__all__'
 
 
