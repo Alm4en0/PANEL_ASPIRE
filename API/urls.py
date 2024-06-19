@@ -55,10 +55,10 @@ urlpatterns = [
 
     
     path('cursos/<str:nombre>/', get_curso_by_nombre),
-"""     path('iniciar-pago-paypal/', views.iniciar_pago_paypal),
+    path('iniciar-pago-paypal/', views.iniciar_pago_paypal),
     path('confirmar-pago-paypal/', views.confirmar_pago_paypal),
     path('crear-venta/', views.crear_venta, name='crear_venta'),
-    path('comprar-curso/', comprar_curso), """
+    path('comprar-curso/', comprar_curso),
     path('save-payment/', views.save_payment, name='save_payment'),
 
 
