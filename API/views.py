@@ -332,3 +332,24 @@ class CustomUserListCreate(generics.ListCreateAPIView):
 class CustomUserRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+
+#MOVIL
+@api_view(['POST'])
+def loginMovil(request):
+    try:
+        email = request.data['email']
+        password = request.data['password']
+
+        user = authenticate(request, email=email, password=password)
+
+        if user is None:
+            return Response({"error": "Credenciales incorrectas"}, status=status.HTTP_401_UNAUTHORIZED)
+        
+        token, _ = Token.objects.get_or_create(user=user)
+        serializer = CustomUserSerializer(instance=user)
+
+        # Incluir el username en la respuesta
+        return Response({"token": token.key, "username": user.username, "user": serializer.data}, status=status.HTTP_200_OK)
+
+    except KeyError:
+        return Response({"error": "Datos incompletos"}, status=status.HTTP_400_BAD_REQUEST)
