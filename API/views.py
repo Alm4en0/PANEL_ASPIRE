@@ -90,7 +90,7 @@ def comprar_curso(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-""" @api_view(['POST'])
+@api_view(['POST'])
 def crear_venta(request):
     plan_id = request.data.get('plan_id')
     alumno_id = request.user.id  # Obtener el ID del usuario autenticado
@@ -104,7 +104,7 @@ def crear_venta(request):
         fecha_venta=timezone.now()
     )
 
-    return Response({'venta_id': venta.id}, status=status.HTTP_201_CREATED) """
+    return Response({'venta_id': venta.id}, status=status.HTTP_201_CREATED) 
 
 @api_view(['POST'])
 def save_payment(request):
