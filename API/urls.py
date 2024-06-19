@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 from django.urls import path, re_path
 
-from .views import comprar_curso, get_curso_by_nombre, save_payment, iniciar_pago_paypal, confirmar_pago_paypal
+from .views import comprar_curso, get_curso_by_nombre, save_payment, iniciar_pago_paypal, confirmar_pago_paypal,crear_venta
 from rest_framework.authtoken import views as drf_views
 
 
