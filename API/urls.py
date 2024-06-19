@@ -55,6 +55,7 @@ urlpatterns = [
 
     
     path('cursos/<str:nombre>/', get_curso_by_nombre, name='curso-by-nombre'),
+    path('crear-venta/', views.crear_venta),
     path('comprar-curso/', comprar_curso),
     path('save-payment/', save_payment, name='save_payment'),
 
