@@ -1,9 +1,9 @@
 from django.urls import path
 from . import views
 from django.urls import path, re_path
-
 from .views import  get_curso_by_nombre, save_payment
 from rest_framework.authtoken import views as drf_views
+from django.urls import re_path
 
 
 
@@ -54,11 +54,7 @@ urlpatterns = [
 
 
     
-    path('cursos/<str:nombre>/', get_curso_by_nombre),
-"""     path('iniciar-pago-paypal/', views.iniciar_pago_paypal),
-    path('confirmar-pago-paypal/', views.confirmar_pago_paypal),
-    path('crear-venta/', views.crear_venta, name='crear_venta'),
-    path('comprar-curso/', comprar_curso), """,
+    re_path(r'^cursos/(?P<nombre>[\w-]+)/$', get_curso_by_nombre),
     path('save-payment/', views.save_payment, name='save_payment'),
 
 
