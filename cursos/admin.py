@@ -90,9 +90,9 @@ class RecursoCursoAdmin(admin.ModelAdmin):
     list_filter = ('curso',)
 
 class VentaPagoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'venta', 'monto', 'fecha_registro_formatted')
-    search_fields = ('venta__plan__nombre',)
-    list_filter = ('fecha_registro',)
+    list_display = ('id', 'venta','paypal_id', 'monto', 'fecha_registro_formatted')
+    search_fields = ('venta__plan__nombre','paypal_id')
+    list_filter = ('fecha_registro', 'paypal_id',)
 
     @admin.display(description='Fecha de Registro')
     def fecha_registro_formatted(self, obj):

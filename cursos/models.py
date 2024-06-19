@@ -130,6 +130,7 @@ class RecursoCurso(models.Model):
 
 class VentaPago(models.Model):
     venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
+    paypal_id = models.CharField(max_length=255, null=True)
     monto = models.DecimalField(max_digits=10, decimal_places=2, null=False)
     fecha_registro = models.DateTimeField(auto_now_add=True)
 
