@@ -1,4 +1,3 @@
-
 from django.shortcuts import render
 from django.conf import settings
 from rest_framework.decorators import api_view, permission_classes
@@ -8,7 +7,6 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
-from paypalrestsdk import SandboxEnvironment
 import json
 
 
@@ -89,7 +87,7 @@ def comprar_curso(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
+""" @api_view(['POST'])
 def crear_venta(request):
     plan_id = request.data.get('plan_id')
     alumno_id = request.user.id  # Obtener el ID del usuario autenticado
@@ -104,7 +102,7 @@ def crear_venta(request):
     )
 
     return Response({'venta_id': venta.id}, status=status.HTTP_201_CREATED) 
-
+ """
 @api_view(['POST'])
 def save_payment(request):
     try:
@@ -142,14 +140,14 @@ def save_payment(request):
     except Exception as e:
         return Response({'error': str(e)}, status=400)
 
-
+""" # Configuración de PayPal
 client_id = settings.PAYPAL_CLIENT_ID
 client_secret = settings.PAYPAL_CLIENT_SECRET
 
 environment = SandboxEnvironment(client_id=client_id, client_secret=client_secret)
-client = PayPalHttpClient(environment)
+client = PayPalHttpClient(environment) """
 
-@api_view(['POST'])
+""" @api_view(['POST'])
 def iniciar_pago_paypal(request):
     try:
         # Obtener el ID del plan y el ID de usuario del cuerpo de la solicitud
@@ -212,7 +210,7 @@ def confirmar_pago_paypal(request):
             return Response({'error': 'No se pudo completar el pago en PayPal'}, status=status.HTTP_400_BAD_REQUEST)
 
     except Venta.DoesNotExist:
-        return Response({'error': 'Venta no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+        return Response({'error': 'Venta no encontrada'}, status=status.HTTP_404_NOT_FOUND) """
 
 @api_view(['GET'])
 def curso_detail(request):
