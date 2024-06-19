@@ -92,11 +92,14 @@ def save_payment(request):
         paypal_id = request.data.get('paypal_id')
         monto = float(request.data.get('monto'))
         fecha_registro = request.data.get('fecha_registro')
+        venta_id = request.data.get('venta_id')  # Obtener el ID de la venta
 
         # Obtener la instancia de Venta correspondiente
+        venta = Venta.objects.get(id=venta_id)
 
         # Guardar el pago en el modelo VentaPago
         pago = VentaPago.objects.create(
+            venta=venta,
             paypal_id=paypal_id,
             monto=monto,
             fecha_registro=fecha_registro
