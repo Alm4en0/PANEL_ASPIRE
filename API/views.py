@@ -89,19 +89,24 @@ def comprar_curso(request):
 @api_view(['POST'])
 def save_payment(request):
     try:
-        paypal_id = int(request.data.get('paypal_id'))
+        paypal_id = request.data.get('paypal_id')
         monto = float(request.data.get('monto'))
         fecha_registro = request.data.get('fecha_registro')
+        venta_id = request.data.get('venta_id')  # Obtener el ID de la venta
 
-        # Guardar la venta en la base de datos
-        paypal = Venta.objects.create(
-            paypal_id = paypal_id,
+        # Obtener la instancia de Venta correspondiente
+        venta = Venta.objects.get(id=venta_id)
+
+        # Guardar el pago en el modelo VentaPago
+        pago = VentaPago.objects.create(
+            venta=venta,
+            paypal_id=paypal_id,
             monto=monto,
             fecha_registro=fecha_registro
         )
 
         # Aquí podrías realizar cualquier lógica adicional, como enviar una respuesta personalizada
-        return Response({'message': 'Venta guardada correctamente', 'paypal_id': paypal_id})
+        return Response({'message': 'Pago guardado correctamente', 'paypal_id': paypal_id})
 
     except Exception as e:
         return Response({'error': str(e)}, status=400)
