@@ -87,12 +87,28 @@ def comprar_curso(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
+def crear_venta(request):
+    plan_id = request.data.get('plan_id')
+    alumno_id = request.user.id  # Obtener el ID del usuario autenticado
+
+    plan = Plan.objects.get(id=plan_id)
+    alumno = CustomUser.objects.get(id=alumno_id)
+
+    venta = Venta.objects.create(
+        plan=plan,
+        alumno=alumno,
+        fecha_venta=timezone.now()
+    )
+
+    return Response({'venta_id': venta.id}, status=status.HTTP_201_CREATED)
+
+@api_view(['POST'])
 def save_payment(request):
     try:
         paypal_id = request.data.get('paypal_id')
         monto = float(request.data.get('monto'))
         fecha_registro = request.data.get('fecha_registro')
-        venta_id = request.data.get('venta_id')  # Obtener el ID de la venta
+        venta_id = request.data.get('venta_id')
 
         # Obtener la instancia de Venta correspondiente
         venta = Venta.objects.get(id=venta_id)
@@ -105,7 +121,18 @@ def save_payment(request):
             fecha_registro=fecha_registro
         )
 
-        # Aquí podrías realizar cualquier lógica adicional, como enviar una respuesta personalizada
+        # Guardar los cursos asociados a la venta
+        cursos = request.data.get('cursos', [])
+        for curso_id in cursos:
+            curso = Curso.objects.get(id=curso_id)
+            VentaCurso.objects.create(
+                venta=venta,
+                curso=curso,
+                cantidad=1,  # Ajusta la cantidad según tus necesidades
+                fecha_venta=fecha_registro,
+                precio=curso.subcategoria_curso.plan.precio
+            )
+
         return Response({'message': 'Pago guardado correctamente', 'paypal_id': paypal_id})
 
     except Exception as e:
