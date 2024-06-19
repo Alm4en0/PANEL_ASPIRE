@@ -88,19 +88,23 @@ def comprar_curso(request):
 
 @api_view(['POST'])
 def save_payment(request):
-    data = request.data
-
     try:
-        venta = Venta.objects.get(pk=data.get('venta_id'))
-    except Venta.DoesNotExist:
-        return Response({'error': 'Venta no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+        venta_id = int(request.data.get('venta_id'))
+        monto = float(request.data.get('monto'))
+        fecha_registro = request.data.get('fecha_registro')
 
-    serializer = VentaPagoSerializer(data={'venta': venta.pk, 'monto': venta.plan.precio})
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # Guardar la venta en la base de datos
+        venta = Venta.objects.create(
+            venta_id=venta_id,
+            monto=monto,
+            fecha_registro=fecha_registro
+        )
+
+        # Aquí podrías realizar cualquier lógica adicional, como enviar una respuesta personalizada
+        return Response({'message': 'Venta guardada correctamente', 'venta_id': venta.id})
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=400)
 
 """ 
 @api_view(['GET'])
