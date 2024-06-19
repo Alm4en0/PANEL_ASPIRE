@@ -2,8 +2,6 @@
 from django.shortcuts import render
 from django.conf import settings
 from rest_framework.decorators import api_view, permission_classes
-from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
-from paypalcheckoutsdk.orders import OrdersCreateRequest, OrdersCaptureRequest
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -109,18 +107,16 @@ def crear_venta(request):
 @api_view(['POST'])
 def save_payment(request):
     try:
-        paypal_id = request.data.get('paypal_id')
         monto = float(request.data.get('monto'))
         fecha_registro = request.data.get('fecha_registro')
         venta_id = request.data.get('venta_id')
 
         # Obtener la instancia de Venta correspondiente
-        venta = Venta.objects.get(id=venta_id)
+        venta = Venta.objects.get(id=123)
 
         # Guardar el pago en el modelo VentaPago
         pago = VentaPago.objects.create(
             venta=venta,
-            paypal_id=paypal_id,
             monto=monto,
             fecha_registro=fecha_registro
         )
@@ -137,7 +133,7 @@ def save_payment(request):
                 precio=curso.subcategoria_curso.plan.precio
             )
 
-        return Response({'message': 'Pago guardado correctamente', 'paypal_id': paypal_id})
+        return Response({'message': 'Pago guardado correctamente'})
 
     except Exception as e:
         return Response({'error': str(e)}, status=400)
