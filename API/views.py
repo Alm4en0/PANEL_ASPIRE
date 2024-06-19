@@ -1,5 +1,9 @@
 
 from django.shortcuts import render
+from django.conf import settings
+from rest_framework.decorators import api_view, permission_classes
+from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
+from paypalcheckoutsdk.orders import OrdersCreateRequest, OrdersCaptureRequest
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -138,6 +142,77 @@ def save_payment(request):
     except Exception as e:
         return Response({'error': str(e)}, status=400)
 
+# Configuración de PayPal
+client_id = settings.PAYPAL_CLIENT_ID
+client_secret = settings.PAYPAL_CLIENT_SECRET
+
+environment = SandboxEnvironment(client_id=client_id, client_secret=client_secret)
+client = PayPalHttpClient(environment)
+
+@api_view(['POST'])
+def iniciar_pago_paypal(request):
+    try:
+        # Obtener el ID del plan y el ID de usuario del cuerpo de la solicitud
+        plan_id = request.data['plan_id']
+        user_id = request.data['user_id']
+
+        # Obtener el plan y el usuario asociados
+        plan = get_object_or_404(Plan, pk=plan_id)
+        user = get_object_or_404(settings.AUTH_USER_MODEL, pk=user_id)
+
+        # Crear un objeto de venta en tu base de datos
+        venta = Venta(plan=plan, alumno=user, monto=plan.precio)
+        venta.save()
+
+        # Crear la orden de PayPal
+        request = OrdersCreateRequest()
+        request.prefer('return=representation')
+        request.request_body({
+            "intent": "CAPTURE",
+            "purchase_units": [{
+                "amount": {
+                    "currency_code": "USD",
+                    "value": str(plan.precio)
+                }
+            }]
+        })
+
+        response = client.execute(request)
+
+        # Si se creó correctamente, actualizar el objeto de venta con el ID de PayPal
+        if response.status_code == 201:
+            order_id = response.result.id
+            venta.paypal_id = order_id
+            venta.save()
+            return Response({'order_id': order_id}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'error': 'No se pudo iniciar el pago con PayPal'}, status=status.HTTP_400_BAD_REQUEST)
+
+    except KeyError:
+        return Response({'error': 'Datos incompletos'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def confirmar_pago_paypal(request):
+    try:
+        order_id = request.data['order_id']
+        venta = get_object_or_404(Venta, paypal_id=order_id)
+
+        # Capturar el pago en PayPal
+        request = OrdersCaptureRequest(order_id)
+        response = client.execute(request)
+
+        # Verificar si se capturó correctamente el pago
+        if response.result.status == 'COMPLETED':
+            # Actualizar el estado de la venta u otros registros necesarios
+            venta.estado = True  # Opcional: actualizar el estado de la venta
+            venta.save()
+
+            return Response({'message': 'Pago completado correctamente'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'error': 'No se pudo completar el pago en PayPal'}, status=status.HTTP_400_BAD_REQUEST)
+
+    except Venta.DoesNotExist:
+        return Response({'error': 'Venta no encontrada'}, status=status.HTTP_404_NOT_FOUND)
 """ 
 @api_view(['GET'])
 def curso_detail(request):

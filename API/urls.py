@@ -55,6 +55,8 @@ urlpatterns = [
 
     
     path('cursos/<str:nombre>/', get_curso_by_nombre, name='curso-by-nombre'),
+    path('iniciar-pago-paypal/', views.iniciar_pago_paypal, name='iniciarPago'),
+    path('confirmar-pago-paypal/', views.confirmar_pago_paypal ,name='confirmarPago'),
     path('crear-venta/', views.crear_venta, name='crear_venta'),
     path('comprar-curso/', comprar_curso),
     path('save-payment/', views.save_payment, name='save_payment'),

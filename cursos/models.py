@@ -64,7 +64,11 @@ class Venta(models.Model):
     alumno = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     fecha_venta = models.DateTimeField()
 
-    def __str__(self):
+    # Campos adicionales para PayPal
+    paypal_id = models.CharField(max_length=255, null=True)
+    monto_venta = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+
+    def _str_(self):
         return str(self.pk)
 
     class Meta:
@@ -130,7 +134,6 @@ class RecursoCurso(models.Model):
 
 class VentaPago(models.Model):
     venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
-    paypal_id = models.CharField(max_length=255, null=True)
     monto = models.DecimalField(max_digits=10, decimal_places=2, null=False)
     fecha_registro = models.DateTimeField(auto_now_add=True)
 
