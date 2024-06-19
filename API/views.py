@@ -142,7 +142,7 @@ def save_payment(request):
     except Exception as e:
         return Response({'error': str(e)}, status=400)
 
-""" # Configuración de PayPal
+# Configuración de PayPal
 client_id = settings.PAYPAL_CLIENT_ID
 client_secret = settings.PAYPAL_CLIENT_SECRET
 
@@ -212,8 +212,8 @@ def confirmar_pago_paypal(request):
             return Response({'error': 'No se pudo completar el pago en PayPal'}, status=status.HTTP_400_BAD_REQUEST)
 
     except Venta.DoesNotExist:
-        return Response({'error': 'Venta no encontrada'}, status=status.HTTP_404_NOT_FOUND) """
-""" 
+        return Response({'error': 'Venta no encontrada'}, status=status.HTTP_404_NOT_FOUND)
+
 @api_view(['GET'])
 def curso_detail(request):
     try:
@@ -222,7 +222,7 @@ def curso_detail(request):
         return Response({"error": "No se encontraron cursos"}, status=status.HTTP_404_NOT_FOUND)
 
     serializer = CursoSerializer(cursos, many=True)
-    return Response(serializer.data) """
+    return Response(serializer.data)
 
 
 
@@ -324,7 +324,7 @@ class RegistroLandingRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView
     serializer_class = RegistroLandingSerializer
 
 
-""" Vistas para usuarios """
+#Vistas para usuarios
 
 
 class CustomUserListCreate(generics.ListCreateAPIView):
