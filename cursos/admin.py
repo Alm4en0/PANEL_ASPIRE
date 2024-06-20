@@ -42,8 +42,8 @@ class PlanAdmin(admin.ModelAdmin):
     list_filter = ('estado',)
 
 class VentaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'plan', 'alumno', 'fecha_venta_formatted')
-    search_fields = ('plan__nombre', 'alumno__username')
+    list_display = ('id', 'alumno', 'fecha_venta_formatted', 'monto')
+    search_fields = ('alumno__username',)
     list_filter = ('fecha_venta',)
 
     @admin.display(description='Fecha de Venta')
@@ -69,8 +69,8 @@ class InscripcionCursoAdmin(admin.ModelAdmin):
         return '-'
 
 class VentaCursoAdmin(admin.ModelAdmin):
-    list_display = ('id', 'venta', 'curso', 'cantidad', 'fecha_venta_formatted', 'precio')
-    search_fields = ('venta__plan__nombre', 'curso__nombre')
+    list_display = ('id', 'venta', 'plan_curso', 'cantidad', 'fecha_venta_formatted')
+    search_fields = ( 'curso__nombre',)
     list_filter = ('fecha_venta',)
 
     @admin.display(description='Fecha de Venta')

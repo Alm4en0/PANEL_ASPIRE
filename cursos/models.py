@@ -60,9 +60,9 @@ class Plan(models.Model):
         verbose_name_plural = 'Planes'
 
 class Venta(models.Model):
-    plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     alumno = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     fecha_venta = models.DateTimeField()
+    monto = models.DecimalField(max_digits=10, decimal_places=2, null=True)
 
     def _str_(self):
         return str(self.pk)
@@ -90,10 +90,9 @@ class InscripcionCurso(models.Model):
 
 class VentaCurso(models.Model):
     venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
-    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    plan_curso = models.ForeignKey(PlanCurso, on_delete=models.CASCADE, null=True)
     cantidad = models.IntegerField()
     fecha_venta = models.DateTimeField()
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
         verbose_name = 'Venta del Curso'
