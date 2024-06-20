@@ -1,5 +1,12 @@
 from django.urls import path
 from . import views
+from django.urls import path, re_path
+from .views import  get_curso_by_nombre, save_payment, loginMovil
+from rest_framework.authtoken import views as drf_views
+from django.urls import re_path
+
+
+
 urlpatterns = [
     path('categorias/', views.CategoriaCursoListCreate.as_view(), name='categoria-list-create'),
     path('categorias/<int:pk>/', views.CategoriaCursoRetrieveUpdateDestroy.as_view(), name='categoria-detail'),
@@ -34,11 +41,22 @@ urlpatterns = [
     path('ventas-pago/', views.VentaPagoListCreate.as_view(), name='venta-pago-list-create'),
     path('ventas-pago/<int:pk>/', views.VentaPagoRetrieveUpdateDestroy.as_view(), name='venta-pago-detail'),
 
-    path('registros-landing/', views.RegistrosLandingListCreate.as_view(), name='registro-landing-list-create'),
-    path('registros-landing/<int:pk>/', views.RegistrosLandingRetrieveUpdateDestroy.as_view(), name='registro-landing-detail'),
+    path('registros-landing/', views.RegistroLandingListCreate.as_view(), name='registro-landing-list-create'),
+    path('registros-landing/<int:pk>/', views.RegistroLandingRetrieveUpdateDestroy.as_view(), name='registro-landing-detail'),
 
 
     path('usuarios/', views.CustomUserListCreate.as_view()),  # Ruta para listar y crear usuarios
     path('usuarios/<int:pk>/', views.CustomUserRetrieveUpdateDestroy.as_view()),  # Ruta para obtener, actualizar y eliminar usuarios
+
+    path('login/', views.login, name='login'),
+    path('loginMovil/', views.loginMovil, name='loginMovil'),
+    path('register/', views.register, name='register'),
+    path('api-token-auth/', drf_views.obtain_auth_token),  # Ruta para obtener el token de autenticación
+
+
+    
+    re_path(r'^cursos/(?P<nombre>[\w-]+)/$', get_curso_by_nombre),
+    path('save-payment/', views.save_payment, name='save_payment'),
+
 
 ]

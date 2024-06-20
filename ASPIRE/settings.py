@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-k**u6(y$ai+2v1^_(7d6ex3l5v8g6@e^innkn(uxx!va(p8k9*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,11 +45,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'API',
+    'rest_framework.authtoken',
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -59,16 +71,37 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ASPIRE.urls'
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-}
+PAYPAL_CLIENT_ID = 'AStzaGanGIawQet0X34MMznoIXl8yRh_-gmr4M-e6bo9IEF0Lcl0R14UM_FYZ822EsMt_v79BOdJNknA'
+PAYPAL_CLIENT_SECRET = 'EABHbm4TeWLjiNE5izCH0qC1m67jmubVdhpK7JbIlOACXlimiTSascvkb0U8k4HPIA3i0z_jHW1MUFc6'
 
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Configura según tus necesidades
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-}
+CORS_ALLOWED_ORIGINS = [
+    
+    "http://localhost:5173",
+    
+    "http://localhost:3000",
+
+    "http://192.168.101.73:8000",
+
+    "http://192.168.101.73",
+
+    "http://192.168.79.155",
+
+]
+
+CORS_ALLOW_ALL_ORIGINS = True  # Solo para desarrollo
+
+
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
+ 
 
 TEMPLATES = [
     {
@@ -92,13 +125,15 @@ WSGI_APPLICATION = 'ASPIRE.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# The `DATABASES` setting in Django is used to configure the database connection for your project. In
+# this specific configuration:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'aspire6',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'NAME': 'u248345608_ASPIRE',
+        'USER': 'u248345608_Aspire',
+        'PASSWORD': 'Aspire.18321.ha',
+        'HOST': 'srv586.hstgr.io',
         'PORT': '3306'
     }
 }
