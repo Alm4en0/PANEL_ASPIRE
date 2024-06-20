@@ -19,7 +19,7 @@ class CursoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Curso
-        fields = ['nombre', 'descripcion', 'duracion', 'imagen', 'plan_precio', 'categoria_curso','link']
+        fields = ['id', 'nombre', 'descripcion', 'duracion', 'imagen', 'plan_precio', 'categoria_curso','link']
 
     def get_plan_precio(self, obj):
         plan_curso = PlanCurso.objects.filter(curso=obj).first()
