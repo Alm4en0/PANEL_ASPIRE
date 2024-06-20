@@ -4,6 +4,8 @@ from django.urls import path, re_path
 from .views import  get_curso_by_nombre, save_payment, loginMovil, iniciar_pago_paypal, confirmar_pago_paypal
 from rest_framework.authtoken import views as drf_views
 from django.urls import re_path
+from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
+
 
 
 
