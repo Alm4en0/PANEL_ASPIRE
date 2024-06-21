@@ -104,7 +104,7 @@ def login(request):
         
         token, _ = Token.objects.get_or_create(user=user)
         serializer = CustomUserSerializer(instance=user)
-        return Response({"token": token.key, "user": serializer.data}, status=status.HTTP_200_OK)
+        return Response({"token": token.key, "username": user.username, "user": serializer.data}, status=status.HTTP_200_OK)
 
     except KeyError:
         return Response({"error": "Datos incompletos"}, status=status.HTTP_400_BAD_REQUEST)
