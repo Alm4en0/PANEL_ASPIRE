@@ -305,9 +305,13 @@ class PlanCursoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = PlanCurso.objects.all()
     serializer_class = PlanCursoSerializer
 
-class InscripcionCursoListCreate(generics.ListCreateAPIView):
-    queryset = InscripcionCurso.objects.all()
+class InscripcionCursoListCreate(generics.ListAPIView):
     serializer_class = InscripcionCursoSerializer
+    permission_classes = [permissions.IsAuthenticated]  # Asegura que el usuario esté autenticado
+
+    def get_queryset(self):
+        user = self.request.user
+        return InscripcionCurso.objects.filter(usuario=user)
 
 class InscripcionCursoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = InscripcionCurso.objects.all()

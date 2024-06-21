@@ -55,9 +55,28 @@ class PlanCursoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class InscripcionCursoSerializer(serializers.ModelSerializer):
+    curso_nombre = serializers.SerializerMethodField()
+    curso_imagen = serializers.SerializerMethodField()
+    categoria_nombre = serializers.SerializerMethodField()
+    subcategoria_nombre = serializers.SerializerMethodField()
+
+    def get_curso_nombre(self, obj):
+        return obj.curso.nombre
+
+    def get_curso_imagen(self, obj):
+        request = self.context.get('request')
+        imagen_url = obj.curso.imagen.url if obj.curso.imagen else None
+        return request.build_absolute_uri(imagen_url) if imagen_url else None
+
+    def get_categoria_nombre(self, obj):
+        return obj.curso.subcategoria_curso.categoria_curso.nombre
+
+    def get_subcategoria_nombre(self, obj):
+        return obj.curso.subcategoria_curso.nombre
+
     class Meta:
         model = InscripcionCurso
-        fields = '__all__'
+        fields = ['id', 'usuario', 'curso', 'curso_nombre', 'curso_imagen', 'categoria_nombre', 'subcategoria_nombre', 'fecha_registro']
 
 class VentaCursoSerializer(serializers.ModelSerializer):
     class Meta:
