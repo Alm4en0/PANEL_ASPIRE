@@ -7,6 +7,7 @@ from rest_framework.authtoken.models import Token
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.conf import settings
+from rest_framework import permissions
 import json
 from rest_framework import generics
 from cursos.models import CategoriaCurso, SubCategoriaCurso, Curso, Plan, Venta, PlanCurso, InscripcionCurso, VentaCurso, ModuloCurso, RecursoCurso, VentaPago, RegistroLanding, VentaPaypal
