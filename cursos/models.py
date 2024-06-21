@@ -149,3 +149,16 @@ class RegistroLanding(models.Model):
     class Meta:
         verbose_name = 'Registro en Landing'
         verbose_name_plural = 'Registros en Landing'
+
+class VentaPaypal(models.Model):
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    monto = models.DecimalField(max_digits=10, decimal_places=2, null=False)
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+
+    def str(self):
+        return str(self.pk)   
+    
+    class Meta:
+        verbose_name = 'Venta PayPal'
+        verbose_name_plural = 'Ventas PayPal'

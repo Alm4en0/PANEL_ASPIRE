@@ -162,41 +162,43 @@ def comprar_curso(request):
 @api_view(['POST'])
 def save_payment(request):
     try:
-        monto = float(request.data.get('monto'))
-        fecha_registro = request.data.get('fecha_registro')
+        data = json.loads(request.body)
+        payments = data.get('payments', [])
 
-        # Crear una nueva instancia de Venta
-        venta = Venta.objects.create(
-            monto=monto,
-            fecha_registro=fecha_registro,
-            # otros campos necesarios para crear una Venta
-        )
+        if not isinstance(payments, list):
+            return JsonResponse({'error': 'Se esperaba una lista de pagos.'}, status=400)
 
-        # Guardar el pago en el modelo VentaPago
-        pago = VentaPago.objects.create(
-            venta=venta,
-            monto=monto,
-            fecha_registro=fecha_registro
-        )
+        for payment_data in payments:
+            curso_id = payment_data.get('curso_id')
+            usuario_id = payment_data.get('usuario_id')
+            monto = float(payment_data.get('monto'))
 
-        # Guardar los cursos asociados a la venta
-        cursos = request.data.get('cursos', [])
-        for curso_id in cursos:
-            curso = Curso.objects.get(id=curso_id)
-            VentaCurso.objects.create(
-                venta=venta,
-                curso=curso,
-                cantidad=1,  # Ajusta la cantidad según tus necesidades
-                fecha_venta=fecha_registro,
-                precio=curso.subcategoria_curso.plan.precio
+            # Validaciones básicas
+            if not curso_id or not usuario_id or not monto:
+                return JsonResponse({'error': 'Todos los campos son requeridos en cada pago.'}, status=400)
+
+            # Obtener instancias de Curso y Usuario
+            try:
+                curso = Curso.objects.get(id=curso_id)
+            except Curso.DoesNotExist:
+                return JsonResponse({'error': f'Curso con id {curso_id} no encontrado.'}, status=404)
+
+            try:
+                usuario = CustomUser.objects.get(id=usuario_id)
+            except CustomUser.DoesNotExist:
+                return JsonResponse({'error': f'Usuario con id {usuario_id} no encontrado.'}, status=404)
+
+            # Crear y guardar la nueva instancia de VentaPaypal
+            VentaPaypal.objects.create(
+                curso_id=curso.id,  # Usar el ID del curso en lugar del objeto Curso
+                usuario_id=usuario.id,
+                monto=monto,
             )
 
-        return Response({'message': 'Pago guardado correctamente'})
+        return JsonResponse({'message': 'Pagos guardados correctamente'}, status=201)
 
     except Exception as e:
-        return Response({'error': str(e)}, status=400)
-
-# Configuración de PayPal
+        return JsonResponse({'error': str(e)}, status=400)
 
 
 @api_view(['GET'])
