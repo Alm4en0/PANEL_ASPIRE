@@ -162,54 +162,24 @@ def comprar_curso(request):
 @api_view(['POST'])
 def save_payment(request):
     try:
-        data = request.data  # Utilizar request.data en lugar de json.loads(request.body)
+        data = json.loads(request.body)
         payments = data.get('payments', [])
 
-        # Verificar si payments es una lista o un objeto individual
-        if isinstance(payments, list):
-            # Si es una lista de pagos
-            for payment_data in payments:
-                curso_id = payment_data.get('curso_id')
-                usuario_id = payment_data.get('usuario_id')
-                monto = float(payment_data.get('monto'))
+        if not isinstance(payments, list):
+            return JsonResponse({'error': 'Se esperaba una lista de pagos.'}, status=400)
 
-                # Validaciones básicas
-                if not curso_id or not usuario_id or not monto:
-                    return JsonResponse({'error': 'Todos los campos son requeridos en cada pago.'}, status=400)
-
-                # Obtener instancias de Curso y Usuario
-                try:
-                    curso = Curso.objects.get(id=curso_id)
-                except Curso.DoesNotExist:
-                    return JsonResponse({'error': f'Curso con id {curso_id} no encontrado.'}, status=404)
-
-                try:
-                    usuario = CustomUser.objects.get(id=usuario_id)
-                except CustomUser.DoesNotExist:
-                    return JsonResponse({'error': f'Usuario con id {usuario_id} no encontrado.'}, status=404)
-
-                # Crear y guardar la nueva instancia de VentaPaypal
-                VentaPaypal.objects.create(
-                    curso_id=curso.id,
-                    usuario_id=usuario.id,
-                    monto=monto,
-                )
-
-                # También crear la inscripción al curso
-                InscripcionCurso.objects.create(
-                    curso_id=curso.id,
-                    usuario_id=usuario.id,
-                )
-
-        elif isinstance(payments, dict):
-            # Si es un solo pago (no una lista)
-            curso_id = payments.get('curso_id')
-            usuario_id = payments.get('usuario_id')
-            monto = float(payments.get('monto'))
+        for payment_data in payments:
+            curso_id = payment_data.get('curso_id')
+            usuario_id = payment_data.get('usuario_id')
+            monto = float(payment_data.get('monto'))
 
             # Validaciones básicas
             if not curso_id or not usuario_id or not monto:
                 return JsonResponse({'error': 'Todos los campos son requeridos en cada pago.'}, status=400)
+
+            # Verificar si ya existe una inscripción para el usuario y curso
+            if InscripcionCurso.objects.filter(curso_id=curso_id, usuario_id=usuario_id).exists():
+                return JsonResponse({'error': 'Ya has comprado este curso anteriormente'}, status=400)
 
             # Obtener instancias de Curso y Usuario
             try:
@@ -228,15 +198,12 @@ def save_payment(request):
                 usuario_id=usuario.id,
                 monto=monto,
             )
-
-            # También crear la inscripción al curso
+            
+            # Crear la inscripción al curso
             InscripcionCurso.objects.create(
                 curso_id=curso.id,
                 usuario_id=usuario.id,
             )
-
-        else:
-            return JsonResponse({'error': 'El campo payments debe ser una lista o un objeto JSON.'}, status=400)
 
         return JsonResponse({'message': 'Pagos guardados correctamente'}, status=201)
 
