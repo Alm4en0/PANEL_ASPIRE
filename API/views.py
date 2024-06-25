@@ -109,6 +109,8 @@ def login(request):
             "token": token.key, 
             "username": user.username, 
             "email": user.email,
+            "firs_name": user.first_name,
+            "last_name": user.last_name,
             "foto_perfil": user.foto_perfil,
             "user": serializer.data}, status=status.HTTP_200_OK)
 
