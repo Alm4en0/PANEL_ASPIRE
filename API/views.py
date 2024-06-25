@@ -102,21 +102,22 @@ def login(request):
 
         if not user.check_password(password):
             return Response({"error": "Contraseña inválida"}, status=status.HTTP_400_BAD_REQUEST)
-        
+
         token, _ = Token.objects.get_or_create(user=user)
         serializer = CustomUserSerializer(instance=user)
+        foto_url = request.build_absolute_uri(user.foto_perfil.url) if user.foto_perfil else ''
         return Response({
-            "token": token.key, 
-            "username": user.username, 
+            "token": token.key,
+            "username": user.username,
             "email": user.email,
-            "firs_name": user.first_name,
+            "first_name": user.first_name,
             "last_name": user.last_name,
-            "foto_perfil": user.foto_perfil,
-            "user": serializer.data}, status=status.HTTP_200_OK)
+            "foto_perfil": foto_url,
+            "user": serializer.data
+        }, status=status.HTTP_200_OK)
 
     except KeyError:
         return Response({"error": "Datos incompletos"}, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(['POST'])
 def register(request):

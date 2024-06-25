@@ -122,6 +122,5 @@ class CustomUserSerializer(serializers.ModelSerializer):
             password=validated_data['password'],
             dni=validated_data['dni'],
             celular=validated_data['celular'],
-            foto_perfil=validated_data['foto_perfil'],
         )
         return user 
