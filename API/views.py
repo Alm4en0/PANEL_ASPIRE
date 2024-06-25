@@ -105,7 +105,12 @@ def login(request):
         
         token, _ = Token.objects.get_or_create(user=user)
         serializer = CustomUserSerializer(instance=user)
-        return Response({"token": token.key, "username": user.username, "user": serializer.data}, status=status.HTTP_200_OK)
+        return Response({
+            "token": token.key, 
+            "username": user.username, 
+            "email": user.email,
+            "foto_perfil": user.foto_perfil,
+            "user": serializer.data}, status=status.HTTP_200_OK)
 
     except KeyError:
         return Response({"error": "Datos incompletos"}, status=status.HTTP_400_BAD_REQUEST)
@@ -139,6 +144,8 @@ def register(request):
         return Response({'token': token.key, 'user': serializer.data}, status=status.HTTP_201_CREATED)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#Obtener datos del usuario para Perfil
 
 
 def get_curso_by_nombre(request, nombre):
@@ -336,24 +343,3 @@ class CustomUserListCreate(generics.ListCreateAPIView):
 class CustomUserRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
-
-#MOVIL
-@api_view(['POST'])
-def loginMovil(request):
-    try:
-        email = request.data['email']
-        password = request.data['password']
-
-        user = authenticate(request, email=email, password=password)
-
-        if user is None:
-            return Response({"error": "Credenciales incorrectas"}, status=status.HTTP_401_UNAUTHORIZED)
-        
-        token, _ = Token.objects.get_or_create(user=user)
-        serializer = CustomUserSerializer(instance=user)
-
-        # Incluir el username en la respuesta
-        return Response({"token": token.key, "username": user.username, "user": serializer.data}, status=status.HTTP_200_OK)
-
-    except KeyError:
-        return Response({"error": "Datos incompletos"}, status=status.HTTP_400_BAD_REQUEST)
