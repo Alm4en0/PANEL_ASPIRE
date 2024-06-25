@@ -109,7 +109,7 @@ class RegistroLandingSerializer(serializers.ModelSerializer):
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['id','username', 'first_name', 'last_name','genero', 'email', 'password','dni','celular']
+        fields = ['id','username', 'first_name', 'last_name','genero', 'email', 'password','dni','celular','foto_perfil']
 
     def create(self, validated_data):
         # Use the `create_user` method for creating a new user which handles password hashing
@@ -122,5 +122,6 @@ class CustomUserSerializer(serializers.ModelSerializer):
             password=validated_data['password'],
             dni=validated_data['dni'],
             celular=validated_data['celular'],
+            foto_perfil=validated_data['foto_perfil'],
         )
         return user 
