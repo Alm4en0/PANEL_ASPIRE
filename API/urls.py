@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from django.urls import path, re_path
-from .views import  get_curso_by_nombre, save_payment, loginMovil, iniciar_pago_paypal, confirmar_pago_paypal
+from .views import  get_curso_by_nombre, save_payment, iniciar_pago_paypal, confirmar_pago_paypal
 from rest_framework.authtoken import views as drf_views
 from django.urls import re_path
 from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
@@ -51,7 +51,6 @@ urlpatterns = [
     path('usuarios/<int:pk>/', views.CustomUserRetrieveUpdateDestroy.as_view()),  # Ruta para obtener, actualizar y eliminar usuarios
 
     path('login/', views.login, name='login'),
-    path('loginMovil/', views.loginMovil, name='loginMovil'),
     path('register/', views.register, name='register'),
     path('api-token-auth/', drf_views.obtain_auth_token),  # Ruta para obtener el token de autenticación
 
