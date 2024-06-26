@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from django.conf import settings
 from rest_framework import permissions
 import json
+from django.contrib.auth.decorators import login_required
 from rest_framework import generics
 from cursos.models import CategoriaCurso, SubCategoriaCurso, Curso, Plan, Venta, PlanCurso, InscripcionCurso, VentaCurso, ModuloCurso, RecursoCurso, VentaPago, RegistroLanding, VentaPaypal
 from .serializers import CategoriaCursoSerializer, SubCategoriaCursoSerializer, CursoSerializer, PlanSerializer, VentaSerializer, PlanCursoSerializer, InscripcionCursoSerializer, VentaCursoSerializer, ModuloCursoSerializer, RecursoCursoSerializer, VentaPagoSerializer, RegistroLandingSerializer,CustomUserSerializer
@@ -346,3 +347,18 @@ class CustomUserListCreate(generics.ListCreateAPIView):
 class CustomUserRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+
+@api_view(['GET'])
+@login_required
+def user_courses(request):
+    # Obtener el usuario actual
+    user = request.user
+    
+    # Filtrar las inscripciones del usuario
+    inscripciones = InscripcionCurso.objects.filter(usuario=user)
+    
+    # Serializar los datos
+    serializer = InscripcionCursoSerializer(inscripciones, many=True, context={'request': request})
+    
+    # Responder con los datos serializados
+    return Response(serializer.data, status=status.HTTP_200_OK)
