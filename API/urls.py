@@ -61,7 +61,7 @@ urlpatterns = [
     path('iniciar-pago/', views.iniciar_pago_paypal, name='iniciar_pago_paypal'),
     path('confirmar-pago/', views.confirmar_pago_paypal, name='confirmar_pago_paypal'),
 
-    path('api/user_courses/', user_courses, name='user_courses'),
+    path('user_courses/', user_courses, name='user_courses'),
 
 
 ]
