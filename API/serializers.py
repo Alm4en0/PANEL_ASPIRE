@@ -91,7 +91,7 @@ class InscripcionCursoSerializer(serializers.ModelSerializer):
 class VentaCursoSerializer(serializers.ModelSerializer):
     class Meta:
         model = VentaCurso
-        fields = '__all__'
+        fields = ['id', 'curso', 'descripcion', 'nombre', 'estado', 'link', 'duracion']
 
 class ModuloCursoSerializer(serializers.ModelSerializer):
     class Meta:
