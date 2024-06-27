@@ -59,6 +59,7 @@ class InscripcionCursoSerializer(serializers.ModelSerializer):
     curso_imagen = serializers.SerializerMethodField()
     categoria_nombre = serializers.SerializerMethodField()
     subcategoria_nombre = serializers.SerializerMethodField()
+    curso_detalles = serializers.SerializerMethodField()
 
     def get_curso_nombre(self, obj):
         return obj.curso.nombre
@@ -74,10 +75,19 @@ class InscripcionCursoSerializer(serializers.ModelSerializer):
     def get_subcategoria_nombre(self, obj):
         return obj.curso.subcategoria_curso.nombre
 
+    def get_curso_detalles(self, obj):
+        return {
+            'codigo': obj.curso.codigo,
+            'descripcion': obj.curso.descripcion,
+            'duracion': str(obj.curso.duracion),
+            'estado': obj.curso.estado,
+            'link': obj.curso.link
+        }
+
     class Meta:
         model = InscripcionCurso
-        fields = ['id', 'usuario', 'curso', 'curso_nombre', 'curso_imagen', 'categoria_nombre', 'subcategoria_nombre', 'fecha_registro']
-
+        fields = ['id', 'usuario', 'curso', 'curso_nombre', 'curso_imagen', 'categoria_nombre', 
+                  'subcategoria_nombre', 'fecha_registro', 'curso_detalles']
 class VentaCursoSerializer(serializers.ModelSerializer):
     class Meta:
         model = VentaCurso

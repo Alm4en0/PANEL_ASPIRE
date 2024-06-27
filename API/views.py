@@ -355,7 +355,7 @@ def user_courses(request):
     user = request.user
     
     # Filtrar las inscripciones del usuario
-    inscripciones = InscripcionCurso.objects.filter(usuario=user)
+    inscripciones = InscripcionCurso.objects.filter(usuario=user).select_related('curso')
     
     # Serializar los datos
     serializer = InscripcionCursoSerializer(inscripciones, many=True, context={'request': request})
