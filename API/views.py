@@ -308,6 +308,13 @@ class ModuloCursoListCreate(generics.ListCreateAPIView):
     queryset = ModuloCurso.objects.all()
     serializer_class = ModuloCursoSerializer
 
+class ModulosCursoList(generics.ListAPIView):
+    serializer_class = ModuloCursoSerializer
+
+    def get_queryset(self):
+        curso_id = self.kwargs['curso_id']
+        return ModuloCurso.objects.filter(curso_id=curso_id)
+
 class ModuloCursoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = ModuloCurso.objects.all()
     serializer_class = ModuloCursoSerializer

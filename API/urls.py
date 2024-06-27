@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from django.urls import path, re_path
-from .views import  get_curso_by_nombre, save_payment, iniciar_pago_paypal, confirmar_pago_paypal, user_courses
+from .views import  get_curso_by_nombre, save_payment, iniciar_pago_paypal, confirmar_pago_paypal, user_courses, ModulosCursoList
 from rest_framework.authtoken import views as drf_views
 from django.urls import re_path
 from paypalcheckoutsdk.core import PayPalHttpClient, SandboxEnvironment
@@ -62,6 +62,6 @@ urlpatterns = [
     path('confirmar-pago/', views.confirmar_pago_paypal, name='confirmar_pago_paypal'),
 
     path('user-courses/', views.user_courses, name='user_courses'),
-
+    path('cursos/<int:curso_id>/modulos/', ModulosCursoList.as_view(), name='modulos_curso'),
 
 ]
